@@ -16,8 +16,7 @@ async function createTask(req, res) {
 
     res.status(201).send("Task created successfully");
   } catch (error) {
-    console.error("Error:", error);
-    res.status(500).send("Error creating task");
+    res.status(500).send("Error creating task: " + error.message);
   }
 }
 
@@ -34,8 +33,7 @@ async function getTasks(req, res) {
 
     res.send(tasks);
   } catch (error) {
-    console.error("Error:", error);
-    res.status(500).send("Error fetching tasks");
+    res.status(500).send("Error fetching tasks: " + error.message);
   }
 }
 
@@ -59,11 +57,10 @@ async function updateTask(req, res) {
     if (updateTask.modifiedCount > 0) {
       res.status(200).send("Task updated successfully");
     } else {
-      res.status(404).send("Task not found or an error occurred");
+      res.status(404).send("Task not found or an error occurred during update");
     }
   } catch (error) {
-    console.error("Error:", error);
-    res.status(500).send("Error updating task");
+    res.status(500).send("Error updating task: " + error.message);
   }
 }
 
@@ -82,11 +79,12 @@ async function deleteTask(req, res) {
     if (deleteTask.deletedCount > 0) {
       res.status(200).send("Task deleted successfully");
     } else {
-      res.status(404).send("Task not found or an error occurred");
+      res
+        .status(404)
+        .send("Task not found or an error occurred during deletion");
     }
   } catch (error) {
-    console.error("Error:", error);
-    res.status(500).send("Error deleting task");
+    res.status(500).send("Error deleting task: " + error.message);
   }
 }
 
